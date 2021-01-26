@@ -29,11 +29,12 @@ class Polyline extends MapField
      */
     public function resolveAttribute($resource, $attribute = null)
     {
-        return json_decode($resource->{$attribute});
+        $value = $resource->{$attribute};
 
-        return [
-            'lat' => $resource->{$this->meta['latitudeField']},
-            'lng' => $resource->{$this->meta['longitudeField']},
-        ];
+        if (is_array($value)) {
+            return $value;
+        }
+
+        return json_decode($value);
     }
 }
