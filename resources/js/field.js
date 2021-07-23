@@ -5,6 +5,7 @@ Nova.booting((Vue, router) => {
 
     Vue.component('field-map', require('./components/FieldMap'));
     Vue.component('field-marker', require('./components/fields/Marker'));
+    Vue.component('field-markers', require('./components/fields/TripMarkers'));
     Vue.component('field-polyline', require('./components/fields/Polyline'));
 
     // Config leaflet images to load images from CDN
