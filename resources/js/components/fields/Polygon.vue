@@ -11,11 +11,11 @@
             <l-polygon :lat-lngs="value" :visible="true" />
         </field-map>
 
-        <l-control position="bottomleft" v-if="edit">
-            <button @click="removeLastMarker">
+        <l-control position="bottomleft" v-if="edit" class="block my-2">
+            <button @click="removeLastMarker" class="btn btn-default btn-primary">
             Slett forrige
             </button>
-            <button @click="removeAllMarkers">
+            <button @click="removeAllMarkers" class="btn btn-default btn-primary">
             Slett alle
             </button>
         </l-control>
