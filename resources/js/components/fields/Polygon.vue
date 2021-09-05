@@ -1,7 +1,13 @@
 <template>
     <div @keydown.backspace="removeLastMarker">
         <field-map :bounds="bounds" :center="center" :field="field" @click="createMarker">
-            <l-marker v-for="marker in markers" :lat-lng="marker" :draggable="edit" @dragend="triggerChange" />
+            <l-marker v-for="marker in markers" :lat-lng="marker" :draggable="edit" @dragend="triggerChange">
+                <l-icon
+                    :icon-size="[24, 24]"
+                    :icon-anchor="[12, 12]"
+                    icon-url="/images/point_marker.svg"
+                />
+            </l-marker>
             <l-polygon :lat-lngs="value" :visible="true" />
         </field-map>
 
@@ -17,7 +23,7 @@
 </template>
 
 <script>
-import {LMarker, LPolygon} from 'vue2-leaflet'
+import {LMarker, LIcon, LPolygon} from 'vue2-leaflet'
 
 export default {
     props: {
@@ -96,6 +102,7 @@ export default {
 
     components: {
         LMarker,
+        LIcon,
         LPolygon,
     }
 }
