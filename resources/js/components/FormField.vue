@@ -1,5 +1,5 @@
 <template>
-    <default-field :field="field" :errors="errors">
+    <default-field :field="field" :errors="errors" :full-width-content="true">
         <template slot="field">
             <component v-if="value" :is="'field-' + field.map.type" :field="field" :edit="true" v-model="value"></component>
         </template>
