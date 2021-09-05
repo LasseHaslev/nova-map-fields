@@ -90,7 +90,7 @@ export default {
 
     components: {
         LMarker,
-        LPolyline,
+        LPolygon,
     }
 }
 </script>
