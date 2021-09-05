@@ -6,8 +6,11 @@
         </field-map>
 
         <l-control position="bottomleft" >
-            <button @click="clickHandler">
-            I am a useless button!
+            <button @click="removeLastMarker">
+            Slett forrige
+            </button>
+            <button @click="removeAllMarkers">
+            Slett alle
             </button>
         </l-control>
     </div>
@@ -79,12 +82,13 @@ export default {
             this.markers.splice(-1,1);
             this.triggerChange();
         },
+        removeAllMarkers() {
+            this.markers = [];
+            this.triggerChange();
+        },
         createMarker(evt) {
             this.markers.push(evt.latlng);
             this.triggerChange();
-        },
-        clickHandler() {
-            alert('clicked');
         },
     },
 
