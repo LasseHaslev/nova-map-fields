@@ -5,7 +5,7 @@
             <l-polygon :lat-lngs="value" :visible="true" />
         </field-map>
 
-        <l-control position="bottomleft" >
+        <l-control position="bottomleft" v-if="edit">
             <button @click="removeLastMarker">
             Slett forrige
             </button>
@@ -78,13 +78,15 @@ export default {
         triggerChange() {
             this.$emit('input', this.markers);
         },
-        removeLastMarker() {
+        removeLastMarker(event) {
             this.markers.splice(-1,1);
             this.triggerChange();
+            event.preventDefault();
         },
-        removeAllMarkers() {
-            this.markers = [];
+        removeAllMarkers(event) {
+            this.value = [];
             this.triggerChange();
+            event.preventDefault();
         },
         createMarker(evt) {
             this.markers.push(evt.latlng);
