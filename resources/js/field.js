@@ -6,6 +6,7 @@ Nova.booting((Vue, router) => {
     Vue.component('field-map', require('./components/FieldMap'));
     Vue.component('field-marker', require('./components/fields/Marker'));
     Vue.component('field-polyline', require('./components/fields/Polyline'));
+    Vue.component('field-polygon', require('./components/fields/Polygon'));
 
     // Config leaflet images to load images from CDN
     L.Icon.Default.imagePath = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/images/';
