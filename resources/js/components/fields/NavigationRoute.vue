@@ -37,8 +37,8 @@ export default {
   methods: {
     queryNavigation(markers) {
       const cords = markers
-        .map((marker) => `${marker.lng},${marker.lat};`)
-        .slice(0, -1);
+        .map((marker) => `${marker.lng},${marker.lat}`)
+        .join(";");
 
       const URL = `https://api.mapbox.com/directions/v5/mapbox/driving/${cords}?geometries=geojson&access_token=pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w`;
       return fetch(URL)
