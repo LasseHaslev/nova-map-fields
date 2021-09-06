@@ -12,17 +12,7 @@
                 :draggable="edit"
                 @dragstart="saveDraggingMarker"
                 @dragend="updateMarkerPosition"
-            >
-                <l-icon
-                    :icon-size="[24, 24]"
-                    :icon-anchor="[12, 12]"
-                    :icon-url="
-                        index === markers.length - 1
-                            ? '/images/highlighted-point_marker.svg'
-                            : '/images/point_marker.svg'
-                    "
-                />
-            </l-marker>
+            />
             <l-polyline :lat-lngs="value" :visible="true" :fill="false" />
         </field-map>
 
