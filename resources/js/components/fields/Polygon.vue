@@ -81,7 +81,9 @@ export default {
     },
 
     methods: {
-        triggerChange() {
+        triggerChange(evt) {
+            console.log("this is our event:", evt)
+            console.log("this is our markers:", this.markers)
             this.$emit('input', this.markers);
         },
         removeLastMarker(event) {
