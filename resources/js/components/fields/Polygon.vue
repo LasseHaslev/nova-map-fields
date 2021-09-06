@@ -1,7 +1,7 @@
 <template>
     <div @keydown.backspace="removeLastMarker">
         <field-map :bounds="bounds" :center="center" :field="field" @click="createMarker">
-            <l-marker v-for="marker in markers" :lat-lng="marker" :draggable="edit" @dragend="triggerChange">
+            <l-marker v-for="marker in markers" :lat-lng="marker" :draggable="edit" @dragstart="saveDraggingMarker" @dragend="updateMarkerPosition">
                 <l-icon
                     :icon-size="[24, 24]"
                     :icon-anchor="[12, 12]"
@@ -44,6 +44,8 @@ export default {
     data() {
         return {
             startBounds: undefined,
+            markerBeingDragged: undefined,
+            lastMarkerAddedTime: 0
         }
     },
 
@@ -82,9 +84,10 @@ export default {
 
     methods: {
         triggerChange(evt) {
-            console.log("this is our event:", evt)
-            console.log("this is our markers:", this.markers)
             this.$emit('input', this.markers);
+        },
+        saveDraggingMarker(evt) {
+            this.markerBeingDragged = evt.target._latlng;
         },
         removeLastMarker(event) {
             this.markers.splice(-1,1);
@@ -97,8 +100,20 @@ export default {
             event.preventDefault();
         },
         createMarker(evt) {
+            if (new Date().getTime() - this.lastMarkerAddedTime < 20) {
+                // Don't want to double register clicks from dragend, if within 20 ms return
+                return
+            }
             this.markers.push(evt.latlng);
             this.triggerChange();
+        },
+        updateMarkerPosition(evt) {
+            const newMarker = evt.target._latlng;
+            const { lat, lng } = this.markerBeingDragged;
+
+            const markerIndex = this.value.findIndex(marker => marker.lat === lat && marker.lng === lng);
+            this.value.splice(markerIndex, 1, newMarker);
+            this.lastMarkerAddedTime = new Date().getTime()
         },
     },
 
