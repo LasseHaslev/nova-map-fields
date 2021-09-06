@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { Polyline } from "vue2-leaflet";
+import { Polyline } from "./Polyline";
 
 export default {
   props: {
@@ -51,6 +51,7 @@ export default {
 
     triggerChange(markers) {
       console.log("forwarding markers:", markers);
+      this.queryNavigation(markers);
       this.$emit("input", markers);
     },
   },
