@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Polyline
+    <field-polyline
       :edit="edit"
       :field="field"
       :value="value"
@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import { Polyline } from "./Polyline";
-
 export default {
   props: {
     value: {
@@ -54,10 +52,6 @@ export default {
       this.queryNavigation(markers);
       this.$emit("input", markers);
     },
-  },
-
-  components: {
-    Polyline,
   },
 };
 </script>
