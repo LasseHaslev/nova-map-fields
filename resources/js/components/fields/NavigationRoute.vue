@@ -3,7 +3,7 @@
     <field-polyline
       :edit="edit"
       :field="field"
-      :value="value"
+      :value="localValue"
       @input="triggerChange"
     />
   </div>
@@ -28,10 +28,14 @@ export default {
 
   data() {
     return {
-      startBounds: undefined,
-      markerBeingDragged: undefined,
-      lastMarkerAddedTime: 0,
+      localValue: {},
     };
+  },
+
+  created() {
+    if (this.value !== null) {
+      this.localValue = this.value;
+    }
   },
 
   methods: {
@@ -57,6 +61,8 @@ export default {
       if (markers.length === 0) {
         return;
       }
+
+      this.localValue = markers;
 
       console.log("forwarding markers:", markers);
       const navigationRouteCoords = await this.queryNavigation(markers);
