@@ -41,7 +41,7 @@ export default {
       const URL = `https://api.mapbox.com/directions/v5/mapbox/driving/${cords}?geometries=geojson&access_token=pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w`;
       return fetch(URL)
         .then((resp) => resp.json())
-        .then((response) => response.routes[0].geometry)
+        .then((response) => response.routes[0].geometry.coordinates)
         .then(this.mapNavigationRoute);
     },
 
