@@ -2,7 +2,7 @@
 
 namespace Lassehaslev\NovaMapFields;
 
-class Polyline extends MapField
+class NavigationRoute extends MapField
 {
     /**
      * Create a new field.
