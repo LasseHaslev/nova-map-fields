@@ -1,29 +1,50 @@
 <template>
     <div @keydown.backspace="removeLastMarker">
-        <field-map :bounds="bounds" :center="center" :field="field" @click="createMarker">
-            <l-marker v-for="(marker, index) in markers" :lat-lng="marker" :draggable="edit" @dragstart="saveDraggingMarker" @dragend="updateMarkerPosition">
+        <field-map
+            :bounds="bounds"
+            :center="center"
+            :field="field"
+            @click="createMarker"
+        >
+            <l-marker
+                v-for="(marker, index) in markers"
+                :lat-lng="marker"
+                :draggable="edit"
+                @dragstart="saveDraggingMarker"
+                @dragend="updateMarkerPosition"
+            >
                 <l-icon
                     :icon-size="[24, 24]"
                     :icon-anchor="[12, 12]"
-                    :icon-url="index === markers.length - 1 ? '/images/highlighted-point_marker.svg' : '/images/point_marker.svg'"
+                    :icon-url="
+                        index === markers.length - 1
+                            ? '/images/highlighted-point_marker.svg'
+                            : '/images/point_marker.svg'
+                    "
                 />
             </l-marker>
             <l-polygon :lat-lngs="value" :visible="true" />
         </field-map>
 
         <l-control position="bottomleft" v-if="edit" class="block my-2">
-            <button @click="removeLastMarker" class="btn btn-default btn-primary">
-            Slett forrige
+            <button
+                @click="removeLastMarker"
+                class="btn btn-default btn-primary"
+            >
+                Slett forrige
             </button>
-            <button @click="removeAllMarkers" class="btn btn-default btn-primary">
-            Slett alle
+            <button
+                @click="removeAllMarkers"
+                class="btn btn-default btn-primary"
+            >
+                Slett alle
             </button>
         </l-control>
     </div>
 </template>
 
 <script>
-import {LMarker, LIcon, LPolygon} from 'vue2-leaflet'
+import { LMarker, LIcon, LPolygon } from "vue2-leaflet";
 
 export default {
     props: {
@@ -38,15 +59,15 @@ export default {
         edit: {
             type: Boolean,
             default: false,
-        }
+        },
     },
 
     data() {
         return {
             startBounds: undefined,
             markerBeingDragged: undefined,
-            lastMarkerAddedTime: 0
-        }
+            lastMarkerAddedTime: 0,
+        };
     },
 
     computed: {
@@ -78,19 +99,19 @@ export default {
                 return null;
             }
 
-            return this.startBounds = new L.LatLngBounds(this.markers);
+            return (this.startBounds = new L.LatLngBounds(this.markers));
         },
     },
 
     methods: {
         triggerChange(evt) {
-            this.$emit('input', this.markers);
+            this.$emit("input", this.markers);
         },
         saveDraggingMarker(evt) {
             this.markerBeingDragged = evt.target._latlng;
         },
         removeLastMarker(event) {
-            this.markers.splice(-1,1);
+            this.markers.splice(-1, 1);
             this.triggerChange();
             event.preventDefault();
         },
@@ -102,7 +123,7 @@ export default {
         createMarker(evt) {
             if (new Date().getTime() - this.lastMarkerAddedTime < 20) {
                 // Don't want to double register clicks from dragend, if within 20 ms return
-                return
+                return;
             }
             this.markers.push(evt.latlng);
             this.triggerChange();
@@ -111,9 +132,11 @@ export default {
             const newMarker = evt.target._latlng;
             const { lat, lng } = this.markerBeingDragged;
 
-            const markerIndex = this.value.findIndex(marker => marker.lat === lat && marker.lng === lng);
+            const markerIndex = this.value.findIndex(
+                (marker) => marker.lat === lat && marker.lng === lng
+            );
             this.value.splice(markerIndex, 1, newMarker);
-            this.lastMarkerAddedTime = new Date().getTime()
+            this.lastMarkerAddedTime = new Date().getTime();
         },
     },
 
@@ -121,6 +144,6 @@ export default {
         LMarker,
         LIcon,
         LPolygon,
-    }
-}
+    },
+};
 </script>
