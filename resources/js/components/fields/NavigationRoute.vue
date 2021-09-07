@@ -53,7 +53,7 @@ export default {
     };
   },
 
-  created() {
+  beforeMount() {
     this.selectedRouteTypes = this.routeTypes[0].value;
 
     if (this.value !== null) {
