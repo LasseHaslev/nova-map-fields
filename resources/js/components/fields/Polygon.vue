@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { LMarker, LIcon, LPolygon } from "vue2-leaflet";
+import { LMarker, LIcon, LPolygon, LControl } from "vue2-leaflet";
 
 export default {
     props: {
@@ -144,6 +144,7 @@ export default {
         LMarker,
         LIcon,
         LPolygon,
+	LControl,
     },
 };
 </script>
