@@ -53,8 +53,8 @@ export default {
     };
   },
 
-  beforeMount() {
-    this.selectedRouteTypes = this.routeTypes[0].value;
+  created() {
+    this.selectedRouteType = this.routeTypes[0].value;
 
     if (this.value !== null) {
       this.localValue = this.value;
