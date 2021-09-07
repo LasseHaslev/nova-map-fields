@@ -6,6 +6,16 @@
       :value="localValue"
       @input="triggerChange"
     />
+
+    <l-control position="topleft" v-if="edit" class="block my-2">
+      <div class="flex">
+	<div v-for="option in routeTypes">
+          <input type="radio" :id="option.value" :value="option.value" v-model="selectedRouteType">
+          <label :for="option.value">{{ option.name }}</label>
+	</div>
+      </div>
+    </l-control>
+
   </div>
 </template>
 
@@ -29,10 +39,20 @@ export default {
   data() {
     return {
       localValue: {},
+      routeTypes: [{
+	value: 'driving',
+	name: 'Bil'
+      }, {
+	value: 'walking',
+	name: 'Gange'
+      }],
+      selectedRouteType: null
     };
   },
 
   created() {
+    this.selectedRouteTypes = this.routeTypes[0];
+
     if (this.value !== null) {
       this.localValue = this.value;
     }
@@ -44,7 +64,7 @@ export default {
         .map((marker) => `${marker.lng},${marker.lat}`)
         .join(";");
 
-      const URL = `https://api.mapbox.com/directions/v5/mapbox/driving/${cords}?geometries=geojson&access_token=pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w`;
+      const URL = `https://api.mapbox.com/directions/v5/mapbox/${this.selectedRouteType.value}/${cords}?geometries=geojson&access_token=pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w`;
       return fetch(URL)
         .then((resp) => resp.json())
         .then((response) => response.routes[0].geometry.coordinates)
