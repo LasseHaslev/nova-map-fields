@@ -7,21 +7,17 @@
       @input="triggerChange"
     />
 
-    <l-control position="topleft" v-if="edit" class="block my-2">
-      <div class="flex">
-	<div v-for="option in routeTypes" class="ml-2">
-          <input type="radio" :id="option.value" :value="option.value" v-model="selectedRouteType">
-          <label :for="option.value">{{ option.name }}</label>
-	</div>
+    <div v-if="edit" class="flex block my-2">
+      <div v-for="option in routeTypes" class="ml-2">
+        <input type="radio" :id="option.value" :value="option.value" v-model="selectedRouteType">
+        <label :for="option.value">{{ option.name }}</label>
       </div>
-    </l-control>
+    </div>
 
   </div>
 </template>
 
 <script>
-import { LControl } from 'vue2-leaflet';
-
 export default {
   props: {
     value: {
@@ -93,9 +89,5 @@ export default {
       this.$emit("input", navigationRouteCoords);
     },
   },
-
-  components: {
-    LControl
-  }
 };
 </script>
