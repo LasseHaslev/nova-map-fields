@@ -9,7 +9,12 @@
 
     <div v-if="edit" class="flex block my-2">
       <div v-for="option in routeTypes" class="ml-2">
-        <input type="radio" :id="option.value" :value="option.value" v-model="selectedRouteType">
+        <input
+	  type="radio"
+	  :id="option.value"
+	  :checked="option.value === selectedRouteType"
+	  :value="option.value"
+	  @change="e => selectedRouteType = e.target.value">
         <label :for="option.value">{{ option.name }}</label>
       </div>
     </div>
@@ -62,7 +67,7 @@ export default {
         .map((marker) => `${marker.lng},${marker.lat}`)
         .join(";");
 
-      const URL = `https://api.mapbox.com/directions/v5/mapbox/${this.selectedRouteType.value}/${cords}?geometries=geojson&access_token=pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w`;
+      const URL = `https://api.mapbox.com/directions/v5/mapbox/${this.selectedRouteType}/${cords}?geometries=geojson&access_token=pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w`;
       return fetch(URL)
         .then((resp) => resp.json())
         .then((response) => response.routes[0].geometry.coordinates)
