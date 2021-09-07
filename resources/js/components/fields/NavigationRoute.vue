@@ -44,11 +44,12 @@ export default {
     return {
       localValue: {},
       routeTypes: [{
-	value: 'driving',
-	name: 'Bil'
-      }, {
-	value: 'walking',
-	name: 'Gange'
+        value: 'driving',
+        name: 'Bil'
+      },
+      {
+        value: 'walking',
+        name: 'Gange'
       }],
       selectedRouteType: null
     };
@@ -68,7 +69,8 @@ export default {
         .map((marker) => `${marker.lng},${marker.lat}`)
         .join(";");
 
-      const URL = `https://api.mapbox.com/directions/v5/mapbox/${this.selectedRouteType}/${cords}?geometries=geojson&access_token=pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w`;
+      const API_URL = 'https://api.mapbox.com/directions/v5'
+      const URL = `${API_URL}/mapbox/${this.selectedRouteType}/${cords}?geometries=geojson&access_token=${window.fjordmap.mapbox_access_token}`;
       return fetch(URL)
         .then((resp) => resp.json())
         .then((response) => response.routes[0].geometry.coordinates)
