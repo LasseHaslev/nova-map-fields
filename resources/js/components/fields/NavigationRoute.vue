@@ -7,15 +7,15 @@
       @input="triggerChange"
     />
 
+    <p v-if="edit"><b>Velg rutetype:</b></p>
     <div v-if="edit" class="flex block my-2">
-      <p><b>Velg rute type:</b></p>
       <div v-for="option in routeTypes" class="ml-2">
         <input
 	  type="radio"
 	  :id="option.value"
 	  :checked="option.value === selectedRouteType"
 	  :value="option.value"
-	  @change="updatedRouteType">
+	  @change="updateRouteType">
         <label :for="option.value">{{ option.name }}</label>
       </div>
     </div>
@@ -83,7 +83,7 @@ export default {
 
     updateRouteType(event) {
       this.selectedRouteType = event.target.value;
-      this.triggerChange();
+      this.triggerChange(this.localValue);
     },
 
     async triggerChange(markers) {
