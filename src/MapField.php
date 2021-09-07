@@ -31,7 +31,7 @@ abstract class MapField extends Field
      */
     public function __construct($name, $attribute = null, $resolveCallback = null)
     {
-        $this->setHeight('250px');
+        $this->setHeight('400px');
         $this->setCenter(0, 0);
         $this->setZoom(13);
 

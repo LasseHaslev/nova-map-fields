@@ -12,8 +12,18 @@
                 :draggable="edit"
                 @dragstart="saveDraggingMarker"
                 @dragend="updateMarkerPosition"
-            />
-            <l-polyline :lat-lngs="value" :visible="true" :fill="false" />
+            >
+                <l-icon
+                    :icon-size="[24, 24]"
+                    :icon-anchor="[12, 12]"
+                    :icon-url="
+                        index === markers.length - 1
+                            ? '/images/highlighted-point_marker.svg'
+                            : '/images/point_marker.svg'
+                    "
+                />
+            </l-marker>
+            <l-polygon :lat-lngs="value" :visible="true" />
         </field-map>
 
         <l-control position="bottomleft" v-if="edit" class="block my-2">
@@ -34,7 +44,7 @@
 </template>
 
 <script>
-import { LMarker, LIcon, LPolyline } from "vue2-leaflet";
+import { LMarker, LIcon, LPolygon, LControl } from "vue2-leaflet";
 
 export default {
     props: {
@@ -133,7 +143,8 @@ export default {
     components: {
         LMarker,
         LIcon,
-        LPolyline,
+        LPolygon,
+	LControl,
     },
 };
 </script>

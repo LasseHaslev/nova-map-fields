@@ -1,25 +1,31 @@
 <template>
-    <default-field :field="field" :errors="errors">
+    <default-field :field="field" :errors="errors" :full-width-content="true">
         <template slot="field">
-            <component v-if="value" :is="'field-' + field.map.type" :field="field" :edit="true" v-model="value"></component>
+            <component
+                v-if="value"
+                :is="'field-' + field.map.type"
+                :field="field"
+                :edit="true"
+                v-model="value"
+            ></component>
         </template>
     </default-field>
 </template>
 
 <script>
-import { FormField, HandlesValidationErrors } from 'laravel-nova'
+import { FormField, HandlesValidationErrors } from "laravel-nova";
 
 export default {
     mixins: [FormField, HandlesValidationErrors],
 
-    props: ['resourceName', 'resourceId', 'field'],
+    props: ["resourceName", "resourceId", "field"],
 
     methods: {
         /*
          * Set the initial, internal value for the field.
          */
         setInitialValue() {
-            this.value = this.field.value || {}
+            this.value = this.field.value || {};
         },
 
         /**
@@ -33,8 +39,8 @@ export default {
          * Update the field's internal value.
          */
         handleChange(value) {
-            this.value = value
+            this.value = value;
         },
     },
-}
+};
 </script>
