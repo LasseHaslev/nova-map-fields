@@ -8,13 +8,14 @@
     />
 
     <div v-if="edit" class="flex block my-2">
+      <p><b>Velg rute type:</b></p>
       <div v-for="option in routeTypes" class="ml-2">
         <input
 	  type="radio"
 	  :id="option.value"
 	  :checked="option.value === selectedRouteType"
 	  :value="option.value"
-	  @change="e => selectedRouteType = e.target.value">
+	  @change="updatedRouteType">
         <label :for="option.value">{{ option.name }}</label>
       </div>
     </div>
@@ -78,6 +79,11 @@ export default {
       return coords.map(([lng, lat]) => {
         return { lat, lng };
       });
+    },
+
+    updateRouteType(event) {
+      this.selectedRouteType = event.target.value;
+      this.triggerChange();
     },
 
     async triggerChange(markers) {
