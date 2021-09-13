@@ -70,7 +70,8 @@ export default {
         .join(";");
 
       const API_URL = 'https://api.mapbox.com/directions/v5'
-      const URL = `${API_URL}/mapbox/${this.selectedRouteType}/${cords}?geometries=geojson&access_token=${window.fjordmap.mapbox_access_token}`;
+      const ACCESS_TOKEN = window.fjordmap.mapbox_access_token ? window.fjordmap.mapbox_access_token : 'pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w';
+      const URL = `${API_URL}/mapbox/${this.selectedRouteType}/${cords}?geometries=geojson&access_token=${ACCESS_TOKEN}`;
       return fetch(URL)
         .then((resp) => resp.json())
         .then((response) => response.routes[0].geometry.coordinates)
